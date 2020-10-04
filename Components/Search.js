@@ -6,7 +6,7 @@ class Search extends Component { // class Search extends React.Component {
     return (
       <View>
         <TextInput placeholder="Titre du Film" style={styles.textInput}/>
-        <Button title="Rechercher" onPress={() => {}} color='green'/>
+        <Button title="Rechercher" onPress={() => {}} color='blue'/>
       </View>
     );
   }
