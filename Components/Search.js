@@ -58,6 +58,10 @@ class Search extends Component { // class Search extends React.Component {
     }
   }
 
+  _displayDetailForFilm = (idFilm) => {
+  this.props.navigation.navigate("FilmDetail", { idFilm: idFilm })
+  }
+
   render() { // render = function() {
     return (
       <View style={styles.view}>
@@ -80,7 +84,7 @@ class Search extends Component { // class Search extends React.Component {
           style={styles.flatList}
           data={this.state.films}
           keyExtractor={(item) => item.id.toString()} // "toString()" pour convertir notre identifiant de film en chaîne de caractères.
-          renderItem={({item}) => <FilmItem film={item}/>}
+          renderItem={({item}) => <FilmItem film={item} displayDetailForFilm={this._displayDetailForFilm}/>}
           onEndReachedThreshold={0.5}
           onEndReached={() => {
             if (this.page < this.totalPages) { // On vérifie qu'on n'a pas atteint la fin de la pagination (totalPages) avant de charger plus d'éléments
@@ -99,7 +103,6 @@ class Search extends Component { // class Search extends React.Component {
 const styles = StyleSheet.create({
   view: {
     flex: 1,
-    marginTop: 20,
   },
 
   textInput: {

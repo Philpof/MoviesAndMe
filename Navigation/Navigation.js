@@ -1,0 +1,21 @@
+import {createAppContainer} from 'react-navigation'
+import { createStackNavigator } from 'react-navigation-stack'
+import Search from '../Components/Search.js'
+import FilmDetail from '../Components/FilmDetail.js'
+
+const SearchStackNavigator = createStackNavigator({
+  Search: { // Ici j'ai appelé la vue "Search" mais on peut mettre ce que l'on veut. C'est le nom qu'on utilisera pour appeler cette vue
+    screen: Search,
+    navigationOptions: {
+      title: 'Recherche'
+    }
+  },
+  FilmDetail: {
+    screen: FilmDetail,
+    navigationOptions: {
+      title: 'Détail'
+    }
+  }
+})
+
+export default createAppContainer(SearchStackNavigator)
