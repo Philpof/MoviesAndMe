@@ -3,7 +3,6 @@ import { StyleSheet, View, Text, TouchableOpacity, Image } from 'react-native';
 import { getImageFromApi } from '../API/TMDBApi.js';
 
 class FilmItem extends React.Component {
-
   render() {
     const { film, displayDetailForFilm } = this.props
     // Cela équivaut à :

@@ -8,6 +8,13 @@ export function getFilmsFromApiWithSearchedText(text, page) {
 }
 
 // Pour faire apparaitre les posters des films avec une width de 300
-export function getImageFromApi (name) {
+export function getImageFromApi(name) {
   return 'https://image.tmdb.org/t/p/w300' + name
+}
+
+// Pour faire avoir les détail d'un film grace à son "id"
+export function getFilmDetailFromApi(id) {
+  return fetch('https://api.themoviedb.org/3/movie/' + id + '?api_key=' + API_TOKEN + '&language=fr')
+    .then((response) => response.json())
+    .catch((error) => console.error(error));
 }
