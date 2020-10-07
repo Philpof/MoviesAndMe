@@ -1,8 +1,9 @@
-import React from 'react'
-import { StyleSheet, View, Text, Image, ActivityIndicator, ScrollView } from 'react-native'
-import { getFilmDetailFromApi, getImageFromApi } from '../API/TMDBApi'
-import moment from 'moment'
-import numeral from 'numeral'
+import React from 'react';
+import { StyleSheet, View, Text, Image, ActivityIndicator, ScrollView, Button, TouchableOpacity } from 'react-native';
+import { getFilmDetailFromApi, getImageFromApi } from '../API/TMDBApi';
+import moment from 'moment';
+import numeral from 'numeral';
+import { connect } from 'react-redux'; // Permet de connecter le store à notre component "FilmDetail"
 
 class FilmDetail extends React.Component {
 
@@ -23,7 +24,6 @@ class FilmDetail extends React.Component {
     })
   }
 
-
   _displayLoading () {
     if (this.state.isLoading) {
       return (
@@ -34,12 +34,22 @@ class FilmDetail extends React.Component {
     }
   }
 
+  _toggleFavorite() {
+    const action = { type: "TOGGLE_FAVORITE", value: this.state.film }
+    this.props.dispatch(action)
+}
+
   _displayFilm() {
     if (this.state.film != undefined) {
       return (
         <ScrollView style={styles.scrollview_container}>
           <Image style={styles.image} source={{uri: getImageFromApi(this.state.film.backdrop_path)}}/>
           <Text style={styles.title_text}>{this.state.film.title}</Text>
+          <TouchableOpacity
+              style={styles.favorite_container}
+              onPress={() => this._toggleFavorite()}>
+              {this._displayFavoriteImage()}
+          </TouchableOpacity>
           <Text style={styles.description_text}>{this.state.film.overview}</Text>
           <Text style={styles.default_text}>Genre : {this.state.film.genres.map(function(genre){
               return genre.name;
@@ -55,6 +65,20 @@ class FilmDetail extends React.Component {
         </ScrollView>
       )
     }
+  }
+
+  _displayFavoriteImage() {
+    var sourceImage = require('../Images/ic_favorite_border.png')
+    if (this.props.favoritesFilm.findIndex(item => item.id === this.state.film.id) !== -1) {
+      // Film dans nos favoris
+      sourceImage = require('../Images/ic_favorite.png')
+    }
+    return (
+      <Image
+        style={styles.favorite_image}
+        source={sourceImage}
+      />
+    )
   }
 
   render() {
@@ -99,6 +123,13 @@ const styles = StyleSheet.create({
     color: '#000000',
     textAlign: 'center'
   },
+  favorite_container: {
+    alignItems: 'center', // Alignement des components enfants sur l'axe secondaire, X ici
+  },
+  favorite_image: {
+    width: 40,
+    height: 40
+  },
   description_text: {
     fontStyle: 'italic',
     color: '#666666',
@@ -112,4 +143,10 @@ const styles = StyleSheet.create({
   }
 })
 
-export default FilmDetail
+const mapStateToProps = (state) => {
+  return {
+    favoritesFilm: state.favoritesFilm
+  }
+}
+
+export default connect(mapStateToProps)(FilmDetail) // Permet de connecter le store à notre component "FilmDetail". On connecte le state de l'application avec les props du component "FilmDetail"

@@ -1,13 +1,15 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import Navigation from './Navigation/Navigation'; // On peut aussi mettre le ".js" après "Search"
+import Navigation from './Navigation/Navigation.js'; // On peut aussi ne pas mettre le ".js" après "Navigation"
+import { Provider } from 'react-redux';
+import Store from './Store/configureStore.js';
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <StatusBar style="auto" />
-      <Navigation/>
+        <StatusBar style="auto" />
+        <Provider store={Store}><Navigation/></Provider>
     </View>
   );
 }
