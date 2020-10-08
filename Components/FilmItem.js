@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     width: 126,
     height: 189,
     margin: 5,
-    backgroundColor: 'grey'
+    backgroundColor: '#FFFF00'
   },
   container: {
     flex: 2,
