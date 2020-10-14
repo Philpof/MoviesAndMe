@@ -21,19 +21,37 @@ const SearchStackNavigator = createStackNavigator({
     navigationOptions: {
       title: 'Détail'
     }
+  }
+})
+
+const FavoritesStackNavigator = createStackNavigator({
+  Favorites: {
+    screen: Favorites,
+    navigationOptions: {
+      title: 'Favoris'
+    }
   },
-  // Favorites: {
-  //   screen: Favorites,
-  //   navigationOptions: {
-  //     title: 'Favoris'
-  //   }
-  // },
-  // Credits: {
-  //   screen: Credits,
-  //   navigationOptions: {
-  //     title: 'Crédits'
-  //   }
-  // }
+  FilmDetail: {
+    screen: FilmDetail,
+    navigationOptions: {
+      title: 'Détail'
+    }
+  }
+})
+
+const CreditsStackNavigator = createStackNavigator({
+  Credits: {
+    screen: Credits,
+    navigationOptions: {
+      title: 'Crédits'
+    }
+  },
+  Search: {
+    screen: Search,
+    navigationOptions: {
+      title: 'Recherche'
+    }
+  }
 })
 
 const MoviesTabNavigator = createBottomTabNavigator(
@@ -49,7 +67,7 @@ const MoviesTabNavigator = createBottomTabNavigator(
     }
   },
   Favorites: {
-    screen: Favorites,
+    screen: FavoritesStackNavigator,
     navigationOptions: {
       tabBarIcon: () => {
         return <Image
@@ -59,7 +77,7 @@ const MoviesTabNavigator = createBottomTabNavigator(
     }
   },
   Credits: {
-    screen: Credits,
+    screen: CreditsStackNavigator,
     navigationOptions: {
       tabBarIcon: () => {
         return <Image
